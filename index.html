@@ -59,11 +59,18 @@ fetch(SHEET_URL)
           if (ev.Link) {
             eDiv.innerHTML += `<br><a href="${ev.Link}" target="_blank">Details</a>`;
           }
+
+          // click to expand/collapse
+          eDiv.addEventListener('click', () => {
+            eDiv.classList.toggle('expanded');
+          });
+
           dayCell.appendChild(eDiv);
         }
       }
     });
   });
+
 </script>
 </body>
 </html>
