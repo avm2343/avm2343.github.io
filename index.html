@@ -9,6 +9,7 @@
 </head>
 <body>
 <h1>The Sidekick's Entertainment Calendar</h1>
+<h2>October</h2>
 <div id="calendar" class="calendar"></div>
 
 <div id="overlay" class="event-overlay"></div>
@@ -45,6 +46,7 @@ for (let d = 1; d <= daysInMonth; d++) {
   div.id = `day-${d}`;
   calendar.appendChild(div);
 }
+const overlay = document.getElementById('overlay');
 
 fetch(SHEET_URL)
   .then(r => r.json())
@@ -57,14 +59,44 @@ fetch(SHEET_URL)
         if (dayCell) {
           const eDiv = document.createElement('div');
           eDiv.className = 'event';
-          eDiv.innerHTML = `<b>${ev.Title}</b><br>${ev.Description || ''}`;
-          if (ev.Link) {
-            eDiv.innerHTML += `<br><a href="${ev.Link}" target="_blank">Details</a>`;
-          }
+          eDiv.dataset.title = ev.Title;
+          eDiv.dataset.description = ev.Description || '';
+          eDiv.dataset.link = ev.Link || '';
+          eDiv.dataset.images = ev.Images || '';
+          eDiv.dataset.stickers = ev.Stickers || '';
 
-          // click to expand/collapse
+          eDiv.innerHTML = `<b>${ev.Title}</b>`;
+
+          // Click to expand
           eDiv.addEventListener('click', () => {
-            eDiv.classList.toggle('expanded');
+            eDiv.classList.add('expanded');
+
+            // Clear current content
+            eDiv.innerHTML = `<b>${eDiv.dataset.title}</b><br>${eDiv.dataset.description}`;
+            
+            if (eDiv.dataset.link) {
+              eDiv.innerHTML += `<br><a href="${eDiv.dataset.link}" target="_blank" style="color:white; text-decoration:underline;">Details</a>`;
+            }
+
+            // Add images
+            if (eDiv.dataset.images) {
+              const imgs = eDiv.dataset.images.split(',');
+              imgs.forEach(src => {
+                const imgEl = document.createElement('img');
+                imgEl.src = src.trim();
+                eDiv.appendChild(imgEl);
+              });
+            }
+
+            // Add stickers
+            if (eDiv.dataset.stickers) {
+              const stickerDiv = document.createElement('div');
+              stickerDiv.className = 'stickers';
+              stickerDiv.textContent = eDiv.dataset.stickers;
+              eDiv.appendChild(stickerDiv);
+            }
+
+            overlay.style.display = 'block';
           });
 
           dayCell.appendChild(eDiv);
@@ -72,6 +104,17 @@ fetch(SHEET_URL)
       }
     });
   });
+
+// Close expanded event when clicking overlay
+overlay.addEventListener('click', () => {
+  const expanded = document.querySelector('.event.expanded');
+  if (expanded) {
+    // Restore original compact title view
+    expanded.innerHTML = `<b>${expanded.dataset.title}</b>`;
+    expanded.classList.remove('expanded');
+  }
+  overlay.style.display = 'none';
+});
 
 </script>
 </body>
