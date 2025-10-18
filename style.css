@@ -143,22 +143,46 @@ h1 {
     font-size: 1.4em;
   }
 }
-
-.event {
-  background-color: #cc0033; /* brand red */
-  color: white;
-  padding: 6px 8px;
-  margin-top: 4px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-family: 'Karla', sans-serif;
-  font-size: 0.9em;
-  transition: all 0.3s ease;
-  overflow: hidden;
-  max-height: 3em; /* initial height for title only */
+/* Overlay behind expanded event */
+.event-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  z-index: 999;
+  display: none;
 }
 
+/* Expanded event card */
 .event.expanded {
-  max-height: 20em; /* expands to fit extra content */
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  max-height: 60%;
+  padding: 20px;
+  font-size: 1em;
+  background-color: #cc0033;
+  color: white;
+  border-radius: 10px;
+  overflow-y: auto;
+  z-index: 1000;
+  cursor: default;
+  transition: all 0.3s ease;
 }
 
+/* Images inside expanded card */
+.event.expanded img {
+  max-width: 100%;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+
+/* Stickers/emojis */
+.event.expanded .stickers {
+  font-size: 1.5em;
+  margin-top: 8px;
+}
