@@ -143,3 +143,22 @@ h1 {
     font-size: 1.4em;
   }
 }
+
+.event {
+  background-color: #cc0033; /* brand red */
+  color: white;
+  padding: 6px 8px;
+  margin-top: 4px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Karla', sans-serif;
+  font-size: 0.9em;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  max-height: 3em; /* initial height for title only */
+}
+
+.event.expanded {
+  max-height: 20em; /* expands to fit extra content */
+}
+
