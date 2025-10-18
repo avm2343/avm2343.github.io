@@ -1,16 +1,51 @@
-/* Match Coppell Student Media branding */
+/* ===========================
+   Coppell Student Media Theme
+   =========================== */
 
+/* Brand Colors */
 :root {
   --brand-red: #cc0033;
   --brand-black: #000000;
   --brand-grey: #333333;
   --brand-light-grey: #f7f7f7;
   --brand-white: #ffffff;
-  --font-base: 'Inter', 'Lato', 'Open Sans', sans-serif;
 }
 
+/* ========== Fonts ========== */
+
+/* Headlines / Headings / Navigation / Widgets */
+.headline,
+h1, h2, h3, h4, h5, h6,
+.nav,
+.widget-title {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}
+
+/* Body Text / Captions / Decks */
+body, p, span, li, .deck, .caption {
+  font-family: 'Karla', sans-serif;
+  font-weight: 400;
+}
+
+/* Website Name / Accent Text */
+.site-title, .accent {
+  font-family: 'DM Serif Display', serif;
+  font-weight: 400;
+}
+
+.accent-italic {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+}
+
+/* ========== Calendar Layout ========== */
+
 body {
-  font-family: var(--font-base);
   color: var(--brand-black);
   background-color: var(--brand-white);
   margin: 0;
@@ -24,8 +59,11 @@ h1 {
   padding: 10px;
   margin: 0 0 20px;
   font-size: 1.8em;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
+/* Calendar Grid */
 .calendar {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -34,6 +72,7 @@ h1 {
   margin: auto;
 }
 
+/* Day Cells */
 .day {
   border: 1px solid var(--brand-light-grey);
   min-height: 100px;
@@ -42,27 +81,40 @@ h1 {
   position: relative;
   background-color: var(--brand-white);
   color: var(--brand-black);
+  font-family: 'Karla', sans-serif;
 }
 
 .day.empty {
   background: var(--brand-light-grey);
 }
 
+/* Calendar Header (Days of Week) */
 .header {
-  font-weight: bold;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
   background: var(--brand-grey);
   color: var(--brand-white);
   text-align: center;
   padding: 6px 0;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
+/* Event Cards */
 .event {
   background-color: var(--brand-red);
   color: var(--brand-white);
   border-radius: 4px;
   margin-top: 5px;
-  padding: 4px 6px;
+  padding: 5px 8px;
   font-size: 0.9em;
+  line-height: 1.3em;
+  font-family: 'Karla', sans-serif;
+}
+
+.event b {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 700;
 }
 
 .event a {
@@ -70,6 +122,14 @@ h1 {
   text-decoration: underline;
 }
 
+/* Accent Style Example */
+.event .accent {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Responsive */
 @media (max-width: 600px) {
   .calendar {
     grid-template-columns: repeat(7, 1fr);
