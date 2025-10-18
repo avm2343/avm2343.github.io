@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SNO Events Calendar</title>
+<style>
+  body { font-family: Inter, sans-serif; background:#fff; margin:0; padding:0; text-align:center; }
+  h1 { background:#222; color:#fff; padding:10px; margin:0; }
+  .calendar { display:grid; grid-template-columns: repeat(7, 1fr); gap:2px; max-width:900px; margin:auto; }
+  .day { border:1px solid #ccc; min-height:100px; padding:5px; text-align:left; position:relative; }
+  .header { font-weight:bold; background:#f7f7f7; text-align:center; }
+  .event { background:#ffe9b3; padding:3px; margin-top:4px; border-radius:4px; font-size:0.9em; }
+</style>
+</head>
+<body>
+<h1>Events Calendar</h1>
+<div id="calendar" class="calendar"></div>
+
+<script>
+const SHEET_URL = "YOUR_WEB_APP_URL_HERE"; // replace with your Apps Script URL
+
+// generate basic month calendar
+const now = new Date();
+const month = now.getMonth();
+const year = now.getFullYear();
+const firstDay = new Date(year, month, 1).getDay();
+const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+const calendar = document.getElementById('calendar');
+const headers = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+headers.forEach(h => {
+  const div = document.createElement('div');
+  div.className = 'header';
+  div.textContent = h;
+  calendar.appendChild(div);
+});
+
+for (let i = 0; i < firstDay; i++) {
+  const div = document.createElement('div');
+  div.className = 'day empty';
+  calendar.appendChild(div);
+}
+
+for (let d = 1; d <= daysInMonth; d++) {
+  const div = document.createElement('div');
+  div.className = 'day';
+  div.innerHTML = `<strong>${d}</strong>`;
+  div.id = `day-${d}`;
+  calendar.appendChild(div);
+}
+
+fetch(SHEET_URL)
+  .then(r => r.json())
+  .then(events => {
+    events.forEach(ev => {
+      const date = new Date(ev.Date);
+      if (date.getMonth() === month && date.getFullYear() === year) {
+        const d = date.getDate();
+        const dayCell = document.getElementById(`day-${d}`);
+        if (dayCell) {
+          const eDiv = document.createElement('div');
+          eDiv.className = 'event';
+          eDiv.innerHTML = `<b>${ev.Title}</b><br>${ev.Description || ''}`;
+          if (ev.Link) {
+            eDiv.innerHTML += `<br><a href="${ev.Link}" target="_blank">Details</a>`;
+          }
+          dayCell.appendChild(eDiv);
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>
