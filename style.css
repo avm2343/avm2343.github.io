@@ -1,0 +1,86 @@
+/* Match Coppell Student Media branding */
+
+:root {
+  --brand-red: #cc0033;
+  --brand-black: #000000;
+  --brand-grey: #333333;
+  --brand-light-grey: #f7f7f7;
+  --brand-white: #ffffff;
+  --font-base: 'Inter', 'Lato', 'Open Sans', sans-serif;
+}
+
+body {
+  font-family: var(--font-base);
+  color: var(--brand-black);
+  background-color: var(--brand-white);
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+h1 {
+  background: var(--brand-red);
+  color: var(--brand-white);
+  padding: 10px;
+  margin: 0 0 20px;
+  font-size: 1.8em;
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.day {
+  border: 1px solid var(--brand-light-grey);
+  min-height: 100px;
+  padding: 8px;
+  text-align: left;
+  position: relative;
+  background-color: var(--brand-white);
+  color: var(--brand-black);
+}
+
+.day.empty {
+  background: var(--brand-light-grey);
+}
+
+.header {
+  font-weight: bold;
+  background: var(--brand-grey);
+  color: var(--brand-white);
+  text-align: center;
+  padding: 6px 0;
+}
+
+.event {
+  background-color: var(--brand-red);
+  color: var(--brand-white);
+  border-radius: 4px;
+  margin-top: 5px;
+  padding: 4px 6px;
+  font-size: 0.9em;
+}
+
+.event a {
+  color: var(--brand-white);
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .calendar {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+  }
+  .day {
+    min-height: 80px;
+    padding: 6px;
+    font-size: 0.9em;
+  }
+  h1 {
+    font-size: 1.4em;
+  }
+}
